@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.net.http.HttpResponseCache;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,7 @@ import static com.squareup.picasso.Utils.parseResponseSourceHeader;
  */
 public class UrlConnectionDownloader implements Downloader {
   static final String RESPONSE_SOURCE = "X-Android-Response-Source";
+  private static final String TAG = UrlConnectionDownloader.class.getSimpleName();
   static volatile Object cache;
 
   private static final Object lock = new Object();
@@ -89,6 +91,7 @@ public class UrlConnectionDownloader implements Downloader {
         headerValue = builder.toString();
       }
 
+      Log.e(TAG, "load: headerValue=" + headerValue);
       connection.setRequestProperty("Cache-Control", headerValue);
     }
 

@@ -27,6 +27,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
@@ -875,6 +876,7 @@ public class Picasso {
 
       if (downloader == null) {
         downloader = Utils.createDefaultDownloader(context);
+          Log.e(TAG, "build: downloader=" + downloader.getClass().getName());
       }
       if (cache == null) {
         cache = new LruCache(context);

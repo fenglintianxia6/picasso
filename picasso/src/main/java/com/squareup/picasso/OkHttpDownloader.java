@@ -18,6 +18,7 @@ package com.squareup.picasso;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.OkHttpClient;
@@ -30,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 /** A {@link Downloader} which uses OkHttp to download images. */
 public class OkHttpDownloader implements Downloader {
+  private static final String TAG = OkHttpDownloader.class.getSimpleName();
   private static OkHttpClient defaultOkHttpClient() {
     OkHttpClient client = new OkHttpClient();
     client.setConnectTimeout(Utils.DEFAULT_CONNECT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
@@ -95,6 +97,7 @@ public class OkHttpDownloader implements Downloader {
   }
 
   @Override public Response load(@NonNull Uri uri, int networkPolicy) throws IOException {
+    Log.e(TAG, "load: uri=" + uri);
     CacheControl cacheControl = null;
     if (networkPolicy != 0) {
       if (NetworkPolicy.isOfflineOnly(networkPolicy)) {
@@ -102,12 +105,15 @@ public class OkHttpDownloader implements Downloader {
       } else {
         CacheControl.Builder builder = new CacheControl.Builder();
         if (!NetworkPolicy.shouldReadFromDiskCache(networkPolicy)) {
+          Log.e(TAG, "load: noCache");
           builder.noCache();
         }
         if (!NetworkPolicy.shouldWriteToDiskCache(networkPolicy)) {
+          Log.e(TAG, "load: noStore");
           builder.noStore();
         }
         cacheControl = builder.build();
+        Log.e(TAG, "load: cacheControl=" + cacheControl.toString());
       }
     }
 
