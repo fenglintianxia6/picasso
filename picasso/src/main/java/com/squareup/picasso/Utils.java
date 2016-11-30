@@ -171,7 +171,7 @@ final class Utils {
   }
 
   static void log(String owner, String verb, String logId, String extras) {
-    Log.d(TAG, format("%1$-11s %2$-12s %3$s %4$s", owner, verb, logId, extras));
+    Log.e(TAG, format("%1$-11s %2$-12s %3$s %4$s", owner, verb, logId, extras));
   }
 
   static String createKey(Request data) {
