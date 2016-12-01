@@ -4,7 +4,7 @@ version = VERSION_NAME
 group = GROUP
 
 def getReleaseRepositoryUrl() {
-    return 'file://' + new File(System.getProperty('user.home'), 'mcenter/repos').absolutePath
+    return 'file://' + new File(System.getProperty('user.home'), 'sample_publish_page/repos').absolutePath
 }
 
 uploadArchives {
